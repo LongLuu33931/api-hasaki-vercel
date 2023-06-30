@@ -12,7 +12,7 @@ const getAllProduct = async ({ page, size, searchString }) => {
       $match: {
         $or: [
           {
-            title: { $regex: `.*${searchString}.*`, $options: "i" },
+            name: { $regex: `.*${searchString}.*`, $options: "i" },
           },
         ],
       },

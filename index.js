@@ -15,6 +15,7 @@ app.use("/brands", brandsRouter);
 // app.use("/suggestion-categories", studentsRouter);
 // app.use("/slide", studentsRouter);
 app.use("", async (req, res) => {
+  await connect();
   res.send("SERVER ON");
 });
 
