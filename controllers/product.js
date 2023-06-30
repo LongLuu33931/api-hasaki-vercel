@@ -1,3 +1,4 @@
+import { body } from "express-validator";
 import { productRepository } from "../repositories/index.js";
 import HttpStatusCode from "../exceptions/httpStatusCode.js";
 
@@ -40,7 +41,23 @@ const insertProduct = async (req, res) => {
   }
 };
 
+const detailProduct = async (req, res) => {
+  const id = req.params.id;
+  try {
+    const product = await productRepository.detailProduct(id);
+    res.status(HttpStatusCode.OK).json({
+      message: "get detail product successfully",
+      data: product,
+    });
+  } catch (error) {
+    res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({
+      message: error.message,
+    });
+  }
+};
+
 export default {
   getAllProduct,
   insertProduct,
+  detailProduct,
 };

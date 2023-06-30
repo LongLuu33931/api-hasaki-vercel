@@ -1,3 +1,4 @@
 import productRouter from "./product.js";
 import brandsRouter from "./brands.js";
-export { productRouter, brandsRouter };
+import iconCategoriesRouter from "./iconCategories.js";
+export { productRouter, brandsRouter, iconCategoriesRouter };

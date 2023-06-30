@@ -3,11 +3,12 @@ import mongoose, { Schema } from "mongoose";
 const iconCategories = mongoose.model(
   "iconCategories",
   new Schema({
-    url: {
+    _id: { type: Number, required: true },
+    image_url: {
       type: String,
       required: true,
     },
-    title: {
+    name: {
       type: String,
       required: true,
     },

@@ -1,3 +1,4 @@
 import productRepository from "./product.js";
 import brandsRepository from "./brands.js";
-export { productRepository, brandsRepository };
+import iconCategoriesRepository from "./iconCategories.js";
+export { productRepository, brandsRepository, iconCategoriesRepository };

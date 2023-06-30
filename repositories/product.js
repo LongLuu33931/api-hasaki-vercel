@@ -35,4 +35,12 @@ const insertProduct = async () => {
     }
   }
 };
-export default { getAllProduct, insertProduct };
+
+const detailProduct = async (id) => {
+  const product = await Product.findById(id);
+  if (!product) {
+    throw new Exception("Cannot find product with id: " + id);
+  }
+  return product;
+};
+export default { getAllProduct, insertProduct, detailProduct };
