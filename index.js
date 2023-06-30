@@ -11,7 +11,7 @@ import {
 import readme from "./global/readme.js";
 // import checkToken from "./authentication/auth.js";
 const app = express();
-app.use(cors);
+app.use(cors());
 // app.use(checkToken);
 app.use(express.json());
 const port = process.env.PORT || 3000;
