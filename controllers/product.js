@@ -31,7 +31,7 @@ const insertProduct = async (req, res) => {
   try {
     const product = await productRepository.insertProduct();
     res.status(HttpStatusCode.OK).json({
-      message: "insert user successfully",
+      message: "insert product successfully",
       data: product,
     });
   } catch (exception) {

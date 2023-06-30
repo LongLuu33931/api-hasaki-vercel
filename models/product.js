@@ -9,28 +9,30 @@ const Product = mongoose.model(
     },
     name: {
       type: String,
-      required: true,
+    },
+    category: {
+      type: String,
+    },
+    brand: {
+      type: String,
     },
     desc_vn: {
       type: String,
-      required: true,
     },
     desc_eng: {
       type: String,
-      required: true,
     },
     price: {
-      type: String,
+      type: Number,
     },
     discount: {
       type: String,
     },
     old_price: {
-      type: String,
+      type: Number,
     },
     image: {
       type: String,
-      required: true,
     },
     rating: {
       type: Number,
