@@ -2,6 +2,7 @@ import express from "express";
 import * as dotenv from "dotenv";
 dotenv.config();
 import connect from "./database/database.js";
+import cors from "cors";
 import {
   productRouter,
   brandsRouter,
@@ -10,6 +11,7 @@ import {
 import readme from "./global/readme.js";
 // import checkToken from "./authentication/auth.js";
 const app = express();
+app.use(cors);
 // app.use(checkToken);
 app.use(express.json());
 const port = process.env.PORT || 3000;
