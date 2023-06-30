@@ -1,7 +1,7 @@
 const readme = [
   {
     name: "get all product",
-    url: "/api/product",
+    url: "/api/product?size=&page=&searchString=",
     method: "get",
   },
   {
