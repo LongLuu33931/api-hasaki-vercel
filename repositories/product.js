@@ -1,0 +1,38 @@
+import { Product } from "../models/index.js";
+
+import Exception from "../exceptions/exceptions.js";
+import { productsData } from "../mock-data/index.js";
+
+const getAllProduct = async ({ page, size, searchString }) => {
+  page = parseInt(page);
+  size = parseInt(size);
+
+  let filteredProduct = await Product.aggregate([
+    {
+      $match: {
+        $or: [
+          {
+            title: { $regex: `.*${searchString}.*`, $options: "i" },
+          },
+        ],
+      },
+    },
+    {
+      $skip: (page - 1) * size,
+    },
+    { $limit: size },
+  ]);
+  return filteredProduct;
+};
+
+const insertProduct = async () => {
+  console.log("insert product");
+  try {
+    await Product.insertMany(productsData);
+  } catch (error) {
+    if (!!error.errors) {
+      throw new Exception("Input error", error.errors);
+    }
+  }
+};
+export default { getAllProduct, insertProduct };
