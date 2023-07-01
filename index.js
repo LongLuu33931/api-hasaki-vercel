@@ -7,9 +7,10 @@ import {
   productRouter,
   brandsRouter,
   iconCategoriesRouter,
+  userRouter,
 } from "./routes/index.js";
 import readme from "./global/readme.js";
-// import checkToken from "./authentication/auth.js";
+import checkToken from "./authentication/auth.js";
 const app = express();
 app.use(cors());
 // app.use(checkToken);
@@ -19,6 +20,7 @@ const port = process.env.PORT || 3000;
 app.use("/api/product", productRouter);
 app.use("/api/brands", brandsRouter);
 app.use("/api/icon-categories", iconCategoriesRouter);
+app.use("/api/user", userRouter);
 // app.use("/icon-categories", studentsRouter);
 // app.use("/suggestion-categories", studentsRouter);
 // app.use("/slide", studentsRouter);

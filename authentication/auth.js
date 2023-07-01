@@ -3,8 +3,13 @@ import jwt from "jsonwebtoken";
 export default function checkToken(req, res, next) {
   //bypass login, register
   if (
-    req.url.toLowerCase().trim() == "/users/login".toLowerCase().trim() ||
-    req.url.toLowerCase().trim() == "/users/register".toLowerCase().trim()
+    req.url.toLowerCase().trim() == "/api/users/login".toLowerCase().trim() ||
+    req.url.toLowerCase().trim() == "/".toLowerCase().trim() ||
+    req.url.toLowerCase().trim() ==
+      "/api/users/register".toLowerCase().trim() ||
+    req.url.toLowerCase().trim() == "/api/product".toLowerCase().trim() ||
+    req.url.toLowerCase().trim() == "/api/product/:id".toLowerCase().trim() ||
+    req.url.toLowerCase().trim() == "/api/icon-categories".toLowerCase().trim()
   ) {
     next();
     return;
