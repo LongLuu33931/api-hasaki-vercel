@@ -37,6 +37,64 @@ const readme = [
     method: "patch",
     body: "id,email,gender,name,date,month,year",
   },
+  {
+    name: "add to cart",
+    url: "/api/cart/add-to-cart",
+    method: "post",
+    body_example: [
+      {
+        email_user: "luuthanhlong24@gmail.com",
+        product_id: 12373892172,
+        image: "imgimg",
+        brand: "LENOVO",
+        desc_vn: "hahaha",
+        price: 200000,
+        quantity: 10,
+      },
+      {
+        email_user: "luuthanhlong24@gmail.com",
+        product_id: 12373892174,
+        image: "imgimg",
+        brand: "LENOVO",
+        desc_vn: "hahaha",
+        price: 200000,
+        quantity: 10,
+      },
+      {
+        email_user: "luuthanhlong24@gmail.com",
+        product_id: 12373892176,
+        image: "imgimg",
+        brand: "LENOVO",
+        desc_vn: "hahaha",
+        price: 200000,
+        quantity: 10,
+      },
+    ],
+  },
+  {
+    name: "get cart",
+    url: "/api/cart",
+    method: "post",
+    body: "email_user",
+  },
+  {
+    name: "update cart",
+    url: "/api/cart",
+    method: "patch",
+    body: "email_user,product_id,quantity",
+  },
+  {
+    name: "drop item cart",
+    url: "/api/cart/drop-item",
+    method: "de;ete",
+    body: "email_user,product_id",
+  },
+  {
+    name: "drop cart",
+    url: "/api/cart",
+    method: "delete",
+    body: "email_user",
+  },
 ];
 
 export default readme;

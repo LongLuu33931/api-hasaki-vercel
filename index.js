@@ -8,6 +8,7 @@ import {
   brandsRouter,
   iconCategoriesRouter,
   userRouter,
+  cartRouter,
 } from "./routes/index.js";
 import readme from "./global/readme.js";
 import checkToken from "./authentication/auth.js";
@@ -21,6 +22,7 @@ app.use("/api/product", productRouter);
 app.use("/api/brands", brandsRouter);
 app.use("/api/icon-categories", iconCategoriesRouter);
 app.use("/api/user", userRouter);
+app.use("/api/cart", cartRouter);
 // app.use("/icon-categories", studentsRouter);
 // app.use("/suggestion-categories", studentsRouter);
 // app.use("/slide", studentsRouter);

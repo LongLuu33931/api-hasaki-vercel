@@ -57,7 +57,7 @@ const register = async (req, res) => {
     });
   } catch (error) {
     res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({
-      message: "cannot register " + exception,
+      message: "cannot register " + error,
       validationErrors: exception.validationErrors,
     });
   }

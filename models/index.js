@@ -4,5 +4,14 @@ import iconCategories from "./iconCategories.js";
 import Slide from "./slide.js";
 import suggestionCategories from "./suggestionCategories.js";
 import User from "./user.js";
+import Cart from "./cart.js";
 
-export { Product, Brands, iconCategories, Slide, suggestionCategories, User };
+export {
+  Cart,
+  Product,
+  Brands,
+  iconCategories,
+  Slide,
+  suggestionCategories,
+  User,
+};
