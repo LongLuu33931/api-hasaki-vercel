@@ -13,6 +13,7 @@ const getAllProduct = async ({ page, size, searchString }) => {
         $or: [
           {
             name: { $regex: `.*${searchString}.*`, $options: "i" },
+            brand: { $regex: `.*${searchString}.*`, $options: "i" },
           },
         ],
       },
