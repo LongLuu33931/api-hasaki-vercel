@@ -3,10 +3,12 @@ import brandsRepository from "./brands.js";
 import iconCategoriesRepository from "./iconCategories.js";
 import userRepository from "./user.js";
 import cartRepository from "./cart.js";
+import categoryRepository from "./category.js";
 export {
   productRepository,
   brandsRepository,
   iconCategoriesRepository,
   userRepository,
   cartRepository,
+  categoryRepository,
 };

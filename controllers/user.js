@@ -55,9 +55,9 @@ const register = async (req, res) => {
       message: "register user successfully",
       data: user,
     });
-  } catch (error) {
+  } catch (exception) {
     res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({
-      message: "cannot register " + error,
+      message: "cannot register " + exception,
       validationErrors: exception.validationErrors,
     });
   }
@@ -73,7 +73,7 @@ const detailUser = async (req, res) => {
       message: "get detail user successfully",
       data: user,
     });
-  } catch (error) {
+  } catch (exception) {
     res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({
       message: "cannot find this user " + exception,
       validationErrors: exception.validationErrors,
