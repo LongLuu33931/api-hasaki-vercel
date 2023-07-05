@@ -4,6 +4,7 @@ import iconCategoriesRepository from "./iconCategories.js";
 import userRepository from "./user.js";
 import cartRepository from "./cart.js";
 import categoryRepository from "./category.js";
+import orderRepository from "./order.js";
 export {
   productRepository,
   brandsRepository,
@@ -11,4 +12,5 @@ export {
   userRepository,
   cartRepository,
   categoryRepository,
+  orderRepository,
 };

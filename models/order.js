@@ -5,18 +5,16 @@ const Order = mongoose.model(
   new Schema({
     email_user: {
       type: String,
-      required,
+      required: true,
     },
     order_date: {
-      type: Date,
-      required,
-    },
-    total_amount: {
-      type: Number,
-      required,
+      type: String,
+      required: true,
     },
     status: {
       type: String,
     },
   })
 );
+
+export default Order;

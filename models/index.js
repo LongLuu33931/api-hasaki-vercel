@@ -6,12 +6,17 @@ import suggestionCategories from "./suggestionCategories.js";
 import User from "./user.js";
 import Cart from "./cart.js";
 import Category from "./category.js";
+import Order from "./order.js";
+import detailOrder from "./detailOrder.js";
+
 export {
-  Category,
-  Cart,
-  Product,
   Brands,
+  Cart,
+  Category,
+  detailOrder,
   iconCategories,
+  Order,
+  Product,
   Slide,
   suggestionCategories,
   User,

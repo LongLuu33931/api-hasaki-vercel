@@ -13,7 +13,22 @@ const addToCart = async (data) => {
 
 const getCart = async (email_user) => {
   try {
-    const cart = await Cart.find({ email_user });
+    const cart = await Cart.aggregate([
+      {
+        $match: {
+          email_user: `${email_user}`,
+        },
+      },
+      {
+        $lookup: {
+          from: "products",
+          localField: "product_id",
+          foreignField: "_id",
+          as: "COMMON",
+        },
+      },
+    ]);
+
     return cart;
   } catch (error) {
     throw new Error("Error retrieving cart items: " + error.message);

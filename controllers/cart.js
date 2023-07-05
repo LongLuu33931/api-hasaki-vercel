@@ -1,5 +1,5 @@
 import { cartRepository } from "../repositories/index.js";
-import httpStatusCode from "../exceptions/httpStatusCode.js     ";
+import httpStatusCode from "../exceptions/httpStatusCode.js";
 
 const addToCart = async (req, res) => {
   try {
@@ -21,7 +21,6 @@ const getCart = async (req, res) => {
   const { email_user } = req.body;
   try {
     const cart = await cartRepository.getCart(email_user);
-    debugger;
     res.status(httpStatusCode.OK).json({
       message: "get cart successfully",
       data: cart,
@@ -37,10 +36,17 @@ const getCart = async (req, res) => {
 const updateCart = async (req, res) => {
   const { email_user, product_id, quantity } = req.body;
   try {
-    await cartRepository.updateCart(req.body);
-    res.status(httpStatusCode.OK).json({
-      message: "update cart item successfully",
-    });
+    const cart = await cartRepository.getCart(email_user);
+    if (cart.length !== 0) {
+      await cartRepository.updateCart(req.body);
+      res.status(httpStatusCode.OK).json({
+        message: "update cart item successfully",
+      });
+    } else {
+      res.status(httpStatusCode.INTERNAL_SERVER_ERROR).json({
+        message: "cannot update cart item",
+      });
+    }
   } catch (error) {
     res.status(httpStatusCode.INTERNAL_SERVER_ERROR).json({
       message: "cannot update cart item " + error,
@@ -52,10 +58,17 @@ const updateCart = async (req, res) => {
 const deleteCartItem = async (req, res) => {
   const { email_user, product_id } = req.body;
   try {
-    await cartRepository.deleteCartItem(req.body);
-    res.status(httpStatusCode.OK).json({
-      message: "delete item successfully",
-    });
+    const cart = await cartRepository.getCart(email_user);
+    if (cart.length !== 0) {
+      await cartRepository.deleteCartItem(req.body);
+      res.status(httpStatusCode.OK).json({
+        message: "delete item successfully",
+      });
+    } else {
+      res.status(httpStatusCode.INTERNAL_SERVER_ERROR).json({
+        message: "cannot delete cart item ",
+      });
+    }
   } catch (error) {
     res.status(httpStatusCode.INTERNAL_SERVER_ERROR).json({
       message: "cannot delete cart item " + error.message,
@@ -66,10 +79,17 @@ const deleteCartItem = async (req, res) => {
 const dropCart = async (req, res) => {
   const { email_user } = req.body;
   try {
-    await cartRepository.dropCart(req.body);
-    res.status(httpStatusCode.OK).json({
-      message: "drop cart successfully",
-    });
+    const cart = await cartRepository.getCart(email_user);
+    if (cart.length !== 0) {
+      await cartRepository.dropCart(req.body);
+      res.status(httpStatusCode.OK).json({
+        message: "drop cart successfully",
+      });
+    } else {
+      res.status(httpStatusCode.INTERNAL_SERVER_ERROR).json({
+        message: "cannot drop cart ",
+      });
+    }
   } catch (error) {
     res.status(httpStatusCode.INTERNAL_SERVER_ERROR).json({
       message: "cannot drop cart " + error.message,

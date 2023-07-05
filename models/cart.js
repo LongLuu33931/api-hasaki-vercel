@@ -9,23 +9,7 @@ const Cart = mongoose.model(
     },
     product_id: {
       type: Number,
-      required: true,
-    },
-    image: {
-      type: String,
-      required: true,
-    },
-    brand: {
-      type: String,
-      required: true,
-    },
-    desc_vn: {
-      type: String,
-      required: true,
-    },
-    price: {
-      type: Number,
-      required: true,
+      ref: "products",
     },
     quantity: {
       type: Number,
