@@ -95,6 +95,23 @@ const readme = [
     method: "delete",
     body: "email_user",
   },
+  {
+    name: "check out",
+    url: "/api/order",
+    method: "post",
+    body: "email_user",
+  },
+  {
+    name: "drop order",
+    url: "/api/order",
+    method: "patch",
+    body: "id, email_user",
+  },
+  {
+    name: "detail order",
+    url: "/api/order/:id",
+    method: "get",
+  },
 ];
 
 export default readme;

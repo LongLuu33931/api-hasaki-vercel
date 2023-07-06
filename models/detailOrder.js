@@ -5,7 +5,7 @@ const detailOrder = mongoose.model(
   new Schema({
     order_id: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "order",
+      ref: "orders",
       required: true,
     },
     product_id: { type: Number, ref: "products", required: true },

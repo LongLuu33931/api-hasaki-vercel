@@ -39,9 +39,9 @@ const checkOut = async (req, res) => {
 
 const dropOrder = async (req, res) => {
   try {
-    const id = req.body.id;
-    const result = await orderRepository.dropOrder(id);
-    if (!result) {
+    const { id, email_user } = req.body;
+    const result = await orderRepository.dropOrder(req.body);
+    if (result.length !== 0) {
       res.status(httpStatusCode.OK).json({
         message: "drop order successfully",
       });
@@ -57,7 +57,51 @@ const dropOrder = async (req, res) => {
   }
 };
 
+const detailOrder = async (req, res) => {
+  try {
+    const order_id = req.params.id;
+    const result = await orderRepository.getDetailOrder(order_id);
+    if (result.lenght !== 0) {
+      res.status(httpStatusCode.OK).json({
+        message: "get detail order successfully",
+        data: result,
+      });
+    } else {
+      res.status(httpStatusCode.INTERNAL_SERVER_ERROR).json({
+        message: "cannot get detail order",
+      });
+    }
+  } catch (error) {
+    res.status(httpStatusCode.INTERNAL_SERVER_ERROR).json({
+      message: "cannot get detail order" + error,
+    });
+  }
+};
+
+const getOrder = async (req, res) => {
+  try {
+    const email_user = req.params.email_user;
+    const result = await orderRepository.getOrder(email_user);
+    if (result.length !== 0) {
+      res.status(httpStatusCode.OK).json({
+        message: "get order successfully with " + email_user,
+        data: result,
+      });
+    } else {
+      res.status(httpStatusCode.BAD_REQUEST).json({
+        message: "cannot get order with " + email_user,
+      });
+    }
+  } catch (error) {
+    res.status(httpStatusCode.INTERNAL_SERVER_ERROR).json({
+      message: error.message.toString(),
+    });
+  }
+};
+
 export default {
   checkOut,
   dropOrder,
+  detailOrder,
+  getOrder,
 };
