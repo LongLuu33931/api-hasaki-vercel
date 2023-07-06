@@ -69,10 +69,16 @@ const detailUser = async (req, res) => {
     console.log(userId);
     debugger;
     const user = await userRepository.detailUser(userId);
-    res.status(HttpStatusCode.OK).json({
-      message: "get detail user successfully",
-      data: user,
-    });
+    if (user !== null) {
+      res.status(HttpStatusCode.OK).json({
+        message: "get detail user successfully",
+        data: user,
+      });
+    } else {
+      res.status(HttpStatusCode.NOT_FOUND).json({
+        message: "not found user",
+      });
+    }
   } catch (exception) {
     res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({
       message: "cannot find this user " + exception,
