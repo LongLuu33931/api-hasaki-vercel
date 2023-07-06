@@ -36,10 +36,6 @@ const swaggerDefinition = {
   },
   servers: [
     {
-      url: "http://localhost:3002",
-      description: "Development server",
-    },
-    {
       url: "https://determined-slug-turtleneck-shirt.cyclic.app/",
       description: "Deploy server",
     },
