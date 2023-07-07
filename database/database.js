@@ -16,7 +16,8 @@ async function connect() {
       //chalk
       throw new Exception(Exception.WRONG_CONNECTION_STRING);
     }
-
+    print("cannot connect mongodb " + error);
+    process.exit(1);
     throw new Exception(Exception.CANNOT_CONNECT_MONGODB);
   }
 }
