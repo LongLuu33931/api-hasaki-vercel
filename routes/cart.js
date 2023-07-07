@@ -1,5 +1,6 @@
 import express from "express";
 import { cartController } from "../controllers/index.js";
+import checkToken from "../authentication/auth.js";
 
 const router = express.Router();
 /**
@@ -33,17 +34,17 @@ const router = express.Router();
  *       500:
  *         description: Internal server error
  */
-router.post("/add-to-cart", cartController.addToCart);
+router.post("/add-to-cart", checkToken, cartController.addToCart);
 /**
  * @swagger
- * /api/cart:
+ * /api/cart/{email_user}:
  *   post:
  *     summary: get cart
  *     description: get cart
  *     tags:
  *       - Cart
  *     parameters:
- *       - in: body
+ *       - in: path
  *         name: cartItem
  *         description: Cart item object
  *         required: true
@@ -60,7 +61,7 @@ router.post("/add-to-cart", cartController.addToCart);
  *       500:
  *         description: Internal server error
  */
-router.get("/:email_user", cartController.getCart);
+router.get("/:email_user", checkToken, cartController.getCart);
 /**
  * @swagger
  * /api/cart:
@@ -91,7 +92,7 @@ router.get("/:email_user", cartController.getCart);
  *       500:
  *         description: Internal server error
  */
-router.patch("", cartController.updateCart);
+router.patch("", checkToken, cartController.updateCart);
 /**
  * @swagger
  * /api/cart/drop-item:
@@ -120,7 +121,7 @@ router.patch("", cartController.updateCart);
  *       500:
  *         description: Internal server error
  */
-router.delete("/drop-item", cartController.deleteCartItem);
+router.delete("/drop-item", checkToken, cartController.deleteCartItem);
 /**
  * @swagger
  * /api/cart:
@@ -147,6 +148,6 @@ router.delete("/drop-item", cartController.deleteCartItem);
  *       500:
  *         description: Internal server error
  */
-router.delete("", cartController.dropCart);
+router.delete("", checkToken, cartController.dropCart);
 
 export default router;

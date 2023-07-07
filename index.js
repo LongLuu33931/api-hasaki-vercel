@@ -21,7 +21,10 @@ app.use(cors());
 // app.use(checkToken);
 app.use(express.json());
 const port = process.env.PORT || 3000;
-
+app.listen(port, async () => {
+  await connect();
+  console.log(`listening on port : ${port}`);
+});
 const swaggerDefinition = {
   openapi: "3.0.0",
   info: {
@@ -40,7 +43,23 @@ const swaggerDefinition = {
       description: "Deploy server",
     },
   ],
+  security: [
+    {
+      bearerAuth: [],
+    },
+  ],
+  components: {
+    securitySchemes: {
+      bearerAuth: {
+        type: "http",
+        scheme: "bearer",
+        bearerFormat: "JWT",
+      },
+    },
+  },
 };
+
+// Your code continues...
 
 const options = {
   swaggerDefinition,
@@ -61,9 +80,4 @@ app.use("/api/order", orderRouter);
 // app.use("/slide", studentsRouter);
 app.use("", async (req, res) => {
   res.send(readme);
-});
-
-app.listen(port, async () => {
-  await connect();
-  console.log(`listening on port : ${port}`);
 });

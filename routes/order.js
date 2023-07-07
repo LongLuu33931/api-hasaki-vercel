@@ -2,6 +2,8 @@ import express from "express";
 
 import { orderController } from "../controllers/index.js";
 
+import checkToken from "../authentication/auth.js";
+
 const router = express.Router();
 
 /**
@@ -30,7 +32,7 @@ const router = express.Router();
  *       500:
  *         description: Internal server error
  */
-router.post("", orderController.checkOut);
+router.post("", checkToken, orderController.checkOut);
 /**
  * @swagger
  * /api/order:
@@ -59,7 +61,7 @@ router.post("", orderController.checkOut);
  *       500:
  *         description: Internal server error
  */
-router.patch("", orderController.dropOrder);
+router.patch("", checkToken, orderController.dropOrder);
 /**
  * @swagger
  * /api/order/{email_user}:
@@ -82,7 +84,7 @@ router.patch("", orderController.dropOrder);
  *       500:
  *         description: Internal server error
  */
-router.get("/:email_user", orderController.getOrder);
+router.get("/:email_user", checkToken, orderController.getOrder);
 /**
  * @swagger
  * /api/order/detail/{id}:
@@ -105,5 +107,5 @@ router.get("/:email_user", orderController.getOrder);
  *       500:
  *         description: Internal server error
  */
-router.get("/detail/:id", orderController.detailOrder);
+router.get("/detail/:id", checkToken, orderController.detailOrder);
 export default router;

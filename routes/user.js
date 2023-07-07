@@ -1,6 +1,6 @@
 import express from "express";
 import { userController } from "../controllers/index.js";
-
+import checkToken from "../authentication/auth.js";
 const router = express.Router();
 /**
  * @swagger
@@ -115,6 +115,6 @@ router.get("/:id", userController.detailUser);
  *       500:
  *         description: Internal server error
  */
-router.patch("", userController.updateUser);
+router.patch("", checkToken, userController.updateUser);
 
 export default router;
