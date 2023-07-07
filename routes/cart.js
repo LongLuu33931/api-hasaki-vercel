@@ -22,7 +22,7 @@ const router = express.Router();
  *               email_user:
  *                 type: string
  *               product_id:
- *                 type: string
+ *                 type: integer
  *               quantity:
  *                 type: integer
  *     responses:
