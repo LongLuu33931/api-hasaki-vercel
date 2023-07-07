@@ -3,7 +3,23 @@ import Exception from "../exceptions/exceptions.js";
 
 const addToCart = async (data) => {
   try {
-    await Cart.insertMany(data);
+    for (let i = 0; i < data.length; i++) {
+      let email_user = data[i].email_user;
+      let product_id = data[i].product_id;
+      const existingCartItem = await Cart.findOne({
+        $and: [{ email_user }, { product_id }],
+      });
+      debugger;
+      if (existingCartItem != null) {
+        existingCartItem.quantity =
+          existingCartItem.quantity + data[i].quantity ??
+          existingCartItem.quantity;
+        await existingCartItem.save();
+      } else {
+        await Cart.create(data[i]);
+      }
+    }
+    // await Cart.insertMany(data);
   } catch (error) {
     if (!!error.errors) {
       throw new Exception("Input error", error.errors);

@@ -60,7 +60,7 @@ router.post("/add-to-cart", cartController.addToCart);
  *       500:
  *         description: Internal server error
  */
-router.post("", cartController.getCart);
+router.get("/:email_user", cartController.getCart);
 /**
  * @swagger
  * /api/cart:
