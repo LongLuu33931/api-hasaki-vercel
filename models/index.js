@@ -8,8 +8,9 @@ import Cart from "./cart.js";
 import Category from "./category.js";
 import Order from "./order.js";
 import detailOrder from "./detailOrder.js";
-
+import userAccessToken from "./userAccessToken.js";
 export {
+  userAccessToken,
   Brands,
   Cart,
   Category,

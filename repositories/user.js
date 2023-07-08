@@ -1,11 +1,12 @@
 import Exception from "../exceptions/exceptions.js";
 import { print, OutputType } from "../helpers/print.js";
-import { User } from "../models/index.js";
+import { User, userAccessToken } from "../models/index.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 const login = async ({ email, password }) => {
   // print("login user in user repository", OutputType.INFORMATION);
   let existingUser = await User.findOne({ email }).exec();
+  debugger;
   if (existingUser) {
     //not encrypt password !
     let isMatch = await bcrypt.compare(password, existingUser.password);
@@ -21,6 +22,12 @@ const login = async ({ email, password }) => {
           // expiresIn: "60",
         }
       );
+      console.log(token);
+      const UAT = {
+        user_id: existingUser._id,
+        token: token,
+      };
+      await userAccessToken.create(UAT);
       return {
         ...existingUser.toObject(),
         password: "not show",
@@ -92,9 +99,24 @@ const updateUser = async ({ id, email, gender, name, birthday }) => {
   }
 };
 
+const logout = async (token) => {
+  try {
+    const authToken = await userAccessToken.findOne({ token }).exec();
+    debugger;
+    if (!userAccessToken) {
+      throw new Exception("Unauthorized");
+    }
+    await userAccessToken.deleteOne({ token: authToken.token });
+    return true;
+  } catch (error) {
+    throw new Exception("error " + error);
+  }
+};
+
 export default {
   login,
   register,
   detailUser,
   updateUser,
+  logout,
 };

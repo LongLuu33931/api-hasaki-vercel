@@ -29,6 +29,8 @@ const router = express.Router();
  *         description: Order created successfully
  *       400:
  *         description: Invalid request
+ *       401:
+ *          description: Unauthorized
  *       500:
  *         description: Internal server error
  */
@@ -58,6 +60,8 @@ router.post("", checkToken, orderController.checkOut);
  *         description: Order updated successfully
  *       400:
  *         description: Invalid request
+ *       401:
+ *          description: Unauthorized
  *       500:
  *         description: Internal server error
  */
@@ -79,6 +83,8 @@ router.patch("", checkToken, orderController.dropOrder);
  *     responses:
  *       200:
  *         description: Successful operation
+ *       401:
+ *          description: Unauthorized
  *       404:
  *         description: User not found
  *       500:
@@ -102,6 +108,8 @@ router.get("/:email_user", checkToken, orderController.getOrder);
  *     responses:
  *       200:
  *         description: Successful operation
+ *       401:
+ *          description: Unauthorized
  *       404:
  *         description: Order not found
  *       500:

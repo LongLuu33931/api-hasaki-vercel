@@ -67,7 +67,6 @@ const detailUser = async (req, res) => {
   try {
     let userId = req.params.id.toString();
     console.log(userId);
-    debugger;
     const user = await userRepository.detailUser(userId);
     if (user !== null) {
       res.status(HttpStatusCode.OK).json({
@@ -123,14 +122,13 @@ const updateUser = async (req, res) => {
   }
 };
 
-const loginRequired = async (req, res, next) => {
-  if (req.user) {
-    next();
-  } else {
-    return res.status(401).json({
-      message: "Unauthorized user",
-    });
-  }
+const logout = async (req, res) => {
+  const token = req.headers?.authorization?.split(" ")[1];
+  debugger;
+  await userRepository.logout(token);
+  res.status(HttpStatusCode.OK).json({
+    message: "logged out",
+  });
 };
 
 export default {
@@ -138,4 +136,5 @@ export default {
   register,
   detailUser,
   updateUser,
+  logout,
 };

@@ -71,7 +71,7 @@ router.post("/login", userController.login);
  */
 router.post("/register", userController.register);
 
-router.get("/:id", userController.detailUser);
+router.get("/:id", checkToken, userController.detailUser);
 /**
  * @swagger
  * /api/user:
@@ -110,11 +110,34 @@ router.get("/:id", userController.detailUser);
  *         description: User updated successfully
  *       400:
  *         description: Invalid request
+ *       401:
+ *          description: Unauthorized
  *       404:
  *         description: User not found
  *       500:
  *         description: Internal server error
  */
+
 router.patch("", checkToken, userController.updateUser);
+
+/**
+ * @swagger
+ * /api/user/logout:
+ *   patch:
+ *     summary: Update a user
+ *     description: Endpoint to update a user with the provided details
+ *     tags:
+ *       - User
+ *     responses:
+ *       200:
+ *         description: logged out
+ *       400:
+ *         description: Invalid request
+ *       401:
+ *         description: Unauthorized
+ *       500:
+ *         description: Internal server error
+ */
+router.post("/logout", checkToken, userController.logout);
 
 export default router;

@@ -1,5 +1,6 @@
 import HttpStatusCode from "../exceptions/httpStatusCode.js";
 import jwt from "jsonwebtoken";
+import userAccessToken from "../models/userAccessToken.js";
 export default function checkToken(req, res, next) {
   //bypass login, register
   if (
@@ -12,6 +13,14 @@ export default function checkToken(req, res, next) {
   //other requests
   //get and validate token
   const token = req.headers?.authorization?.split(" ")[1];
+  const UAT = userAccessToken.findOne({ token }).exec();
+  console.log(typeof UAT);
+  debugger;
+  if (Object.keys(UAT).length === 0) {
+    res.status(401).json({
+      message: "Unauthorized",
+    });
+  }
   try {
     const jwtObject = jwt.verify(token, process.env.JWT_SECRET);
     const isExpired = Date.now() >= jwtObject.exp * 1000;
@@ -26,8 +35,8 @@ export default function checkToken(req, res, next) {
       return;
     }
   } catch (exception) {
-    res.status(HttpStatusCode.BAD_REQUEST).json({
-      message: exception.message,
+    res.status(401).json({
+      message: "Unauthorized",
     });
   }
 }

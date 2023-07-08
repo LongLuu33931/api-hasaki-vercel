@@ -31,6 +31,8 @@ const router = express.Router();
  *         description: Cart created successfully
  *       400:
  *         description: Invalid request
+ *       401:
+ *          description: Unauthorized
  *       500:
  *         description: Internal server error
  */
@@ -38,7 +40,7 @@ router.post("/add-to-cart", checkToken, cartController.addToCart);
 /**
  * @swagger
  * /api/cart/{email_user}:
- *   post:
+ *   get:
  *     summary: get cart
  *     description: get cart
  *     tags:
@@ -58,6 +60,8 @@ router.post("/add-to-cart", checkToken, cartController.addToCart);
  *         description: get cart successfully
  *       400:
  *         description: Invalid request
+ *       401:
+ *          description: Unauthorized
  *       500:
  *         description: Internal server error
  */
@@ -89,6 +93,8 @@ router.get("/:email_user", checkToken, cartController.getCart);
  *         description: Item in cart updated successfully
  *       400:
  *         description: Invalid request
+ *       401:
+ *          description: Unauthorized
  *       500:
  *         description: Internal server error
  */
@@ -118,6 +124,8 @@ router.patch("", checkToken, cartController.updateCart);
  *         description: Item dropped from cart successfully
  *       400:
  *         description: Invalid request
+ *       401:
+ *          description: Unauthorized
  *       500:
  *         description: Internal server error
  */
@@ -145,6 +153,8 @@ router.delete("/drop-item", checkToken, cartController.deleteCartItem);
  *         description: Cart cleared successfully
  *       400:
  *         description: Invalid request
+ *       401:
+ *          description: Unauthorized
  *       500:
  *         description: Internal server error
  */
