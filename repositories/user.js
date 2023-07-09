@@ -22,7 +22,6 @@ const login = async ({ email, password }) => {
           // expiresIn: "60",
         }
       );
-      console.log(token);
       const UAT = {
         user_id: existingUser._id,
         token: token,

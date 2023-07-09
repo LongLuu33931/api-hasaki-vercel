@@ -4,10 +4,22 @@ import { detailOrder, Order } from "../models/index.js";
 import { cartRepository } from "./index.js";
 import Exception from "../exceptions/exceptions.js";
 
-const checkOut = async ({ email_user, order_date, status }) => {
+const checkOut = async ({
+  email_user,
+  order_date,
+  status,
+  address,
+  phone_number,
+}) => {
   try {
     const cart_result = await cartRepository.getCart(email_user);
-    await Order.create({ email_user, order_date, status });
+    await Order.create({
+      email_user,
+      order_date,
+      status,
+      address,
+      phone_number,
+    });
     const lastOrderQuery = Order.find().sort({ _id: -1 }).limit(1);
     const lastOrder = await lastOrderQuery.exec();
     const lastOrderId = lastOrder[0]._id.toString();

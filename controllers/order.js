@@ -15,11 +15,15 @@ const checkOut = async (req, res) => {
       const order_date = `${day}/${month}/${year}`;
 
       const status = "Đang Xử Lý";
+      const address = req.body.address;
+      const phone_number = req.body.phone_number;
 
       await orderRepository.checkOut({
         email_user,
         order_date,
         status,
+        phone_number,
+        address,
       });
       res.status(httpStatusCode.OK).json({
         message: "check out successfully",

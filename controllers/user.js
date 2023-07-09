@@ -124,7 +124,6 @@ const updateUser = async (req, res) => {
 
 const logout = async (req, res) => {
   const token = req.headers?.authorization?.split(" ")[1];
-  debugger;
   await userRepository.logout(token);
   res.status(HttpStatusCode.OK).json({
     message: "logged out",

@@ -24,6 +24,10 @@ const router = express.Router();
  *           properties:
  *             email_user:
  *               type: string
+ *             address:
+ *               type: string
+ *             phone_number:
+ *               type: string
  *     responses:
  *       201:
  *         description: Order created successfully
