@@ -95,7 +95,7 @@ app.get("/protected", isLoggedIn, (req, res) => {
 });
 
 app.get("", async (req, res) => {
-  res.send('<a href="/auth/google">Login with google</a>');
+  res.send(readme);
 });
 app.get(
   "/auth/google",
