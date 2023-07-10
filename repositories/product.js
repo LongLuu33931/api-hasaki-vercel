@@ -3,7 +3,13 @@ import { Product } from "../models/index.js";
 import Exception from "../exceptions/exceptions.js";
 import { productsData } from "../mock-data/index.js";
 
-const getAllProduct = async ({ page, size, searchString }) => {
+const getAllProduct = async () => {
+  const products = await Product.find();
+
+  return products;
+};
+
+const search = async ({ page, size, searchString }) => {
   page = parseInt(page);
   size = parseInt(size);
 
@@ -44,4 +50,4 @@ const detailProduct = async (id) => {
   }
   return product;
 };
-export default { getAllProduct, insertProduct, detailProduct };
+export default { search, insertProduct, detailProduct, getAllProduct };
