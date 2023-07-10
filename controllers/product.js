@@ -6,22 +6,9 @@ import { MAX_RECORDS } from "../global/constants.js";
 
 const getAllProduct = async (req, res) => {
   try {
-    const result = await productRepository.getAllProduct();
-    return res.status(HttpStatusCode.OK).json({
-      message: "get all products successfully",
-      data: result,
-    });
-  } catch (error) {
-    return res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({
-      message: "cannot get all products",
-    });
-  }
-};
-const search = async (req, res) => {
-  try {
     let { page = 1, size = MAX_RECORDS, searchString = "" } = req.query;
     size = size >= MAX_RECORDS ? MAX_RECORDS : size;
-    let filteredProduct = await productRepository.search({
+    let filteredProduct = await productRepository.getAllProduct({
       size,
       page,
       searchString,
@@ -70,8 +57,7 @@ const detailProduct = async (req, res) => {
 };
 
 export default {
-  search,
+  getAllProduct,
   insertProduct,
   detailProduct,
-  getAllProduct,
 };

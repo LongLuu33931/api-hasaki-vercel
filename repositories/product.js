@@ -3,16 +3,11 @@ import { Product } from "../models/index.js";
 import Exception from "../exceptions/exceptions.js";
 import { productsData } from "../mock-data/index.js";
 
-const getAllProduct = async () => {
-  const products = await Product.find();
-
-  return products;
-};
-
-const search = async ({ page, size, searchString }) => {
+const getAllProduct = async ({ page, size, searchString }) => {
   page = parseInt(page);
   size = parseInt(size);
-
+  const products = await Product.find();
+  console.log(products.length);
   let filteredProduct = await Product.aggregate([
     {
       $match: {
@@ -29,7 +24,7 @@ const search = async ({ page, size, searchString }) => {
     },
     { $limit: size },
   ]);
-  return filteredProduct;
+  return { filteredProduct, totalProducts: products.length };
 };
 
 const insertProduct = async () => {
@@ -50,4 +45,4 @@ const detailProduct = async (id) => {
   }
   return product;
 };
-export default { search, insertProduct, detailProduct, getAllProduct };
+export default { getAllProduct, insertProduct, detailProduct };

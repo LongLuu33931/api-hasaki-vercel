@@ -5,7 +5,7 @@ const router = express.Router();
 
 /**
  * @swagger
- * /api/product/search:
+ * /api/product:
  *   get:
  *     summary: Search for products
  *     description: Retrieve a list of products based on the provided search criteria
@@ -32,7 +32,7 @@ const router = express.Router();
  *       500:
  *         description: Internal server error
  */
-router.get("/search", productController.search);
+router.get("", productController.getAllProduct);
 
 /**
  * @swagger
@@ -54,22 +54,5 @@ router.get("/search", productController.search);
 router.get("/:id", productController.detailProduct);
 
 router.post("", productController.insertProduct);
-/**
- * @swagger
- * /api/product:
- *   get:
- *     summary: Get all product
- *     tags:
- *       - Products
- *     responses:
- *       200:
- *         description: Successful operation
- *       404:
- *         description: Product not found
- *       500:
- *         description: Internal server error
- *
- */
-router.get("", productController.getAllProduct);
 
 export default router;
