@@ -2,22 +2,33 @@ import { Cart } from "../models/index.js";
 import Exception from "../exceptions/exceptions.js";
 
 const addToCart = async (data) => {
+  let message = "";
   try {
-    for (let i = 0; i < data.length; i++) {
-      let email_user = data[i].email_user;
-      let product_id = data[i].product_id;
-      const existingCartItem = await Cart.findOne({
-        $and: [{ email_user }, { product_id }],
-      });
-      debugger;
-      if (existingCartItem != null) {
-        existingCartItem.quantity =
-          existingCartItem.quantity + data[i].quantity ??
-          existingCartItem.quantity;
-        await existingCartItem.save();
-      } else {
-        await Cart.create(data[i]);
+    if (data.length > 0) {
+      for (let i = 0; i < data.length; i++) {
+        let email_user = data[i].email_user;
+        let product_id = data[i].product_id;
+        const existingCartItem = await Cart.findOne({
+          $and: [{ email_user }, { product_id }],
+        });
+        if (existingCartItem != null) {
+          existingCartItem.quantity =
+            existingCartItem.quantity + data[i].quantity ??
+            existingCartItem.quantity;
+          await existingCartItem.save();
+        } else {
+          await Cart.create(data[i]);
+        }
       }
+      return json({
+        message: "add to cart successfully",
+        status: 200,
+      });
+    } else {
+      return json({
+        message: "add to cart successfully",
+        status: 400,
+      });
     }
     // await Cart.insertMany(data);
   } catch (error) {

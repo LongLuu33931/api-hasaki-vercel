@@ -1,9 +1,10 @@
 import express from "express";
 import * as dotenv from "dotenv";
 dotenv.config();
-import connect from "./database/database.js";
 import cors from "cors";
+import session from "express-session";
 
+import passport from "passport";
 import swaggerJSDoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
 import {
@@ -14,9 +15,16 @@ import {
   cartRouter,
   orderRouter,
 } from "./routes/index.js";
+import connect from "./database/database.js";
 import readme from "./global/readme.js";
-import checkToken from "./authentication/auth.js";
+
+import GoogleAuth from "./authentication/authGG.js";
+
 const app = express();
+
+app.use(session({ secret: "cats" }));
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(cors());
 // app.use(checkToken);
 app.use(express.json());
@@ -25,6 +33,8 @@ app.listen(port, async () => {
   await connect();
   console.log(`listening on port : ${port}`);
 });
+
+//swagger
 const swaggerDefinition = {
   openapi: "3.0.0",
   info: {
@@ -59,15 +69,14 @@ const swaggerDefinition = {
   },
 };
 
-// Your code continues...
-
 const options = {
   swaggerDefinition,
   apis: ["./routes/*.js"],
 };
-
+GoogleAuth();
 const swaggerSpec = swaggerJSDoc(options);
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
 //routers
 app.use("/api/product", productRouter);
 app.use("/api/brands", brandsRouter);
@@ -75,9 +84,38 @@ app.use("/api/icon-categories", iconCategoriesRouter);
 app.use("/api/user", userRouter);
 app.use("/api/cart", cartRouter);
 app.use("/api/order", orderRouter);
-// app.use("/icon-categories", studentsRouter);
-// app.use("/suggestion-categories", studentsRouter);
-// app.use("/slide", studentsRouter);
-app.use("", async (req, res) => {
-  res.send(readme);
+
+//OAuth2 Google
+function isLoggedIn(req, res, next) {
+  req.user ? next() : res.sendStatus(401);
+}
+
+app.get("/protected", isLoggedIn, (req, res) => {
+  res.send(`hello ${req.user.displayName}`);
+});
+
+app.get("", async (req, res) => {
+  res.send('<a href="/auth/google">Login with google</a>');
+});
+app.get(
+  "/auth/google",
+  passport.authenticate("google", { scope: ["email", "profile"] })
+);
+
+app.get(
+  "/google/callback",
+  passport.authenticate("google", {
+    successRedirect: "/protected",
+    failureRedirect: "/auth/failure",
+  })
+);
+
+app.get("/logout", (req, res) => {
+  req.logOut();
+  req.session.destroy();
+  res.send("Goodbye");
+});
+
+app.get("/auth/failure", (req, res) => {
+  res.send("something went wrong...");
 });

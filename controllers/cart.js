@@ -4,7 +4,8 @@ import httpStatusCode from "../exceptions/httpStatusCode.js";
 const addToCart = async (req, res) => {
   try {
     const item = req.body;
-    await cartRepository.addToCart(item);
+    const result = await cartRepository.addToCart(item);
+    console.log(result);
     res.status(httpStatusCode.INSERT_OK).json({
       message: "add to cart successfully",
     });
